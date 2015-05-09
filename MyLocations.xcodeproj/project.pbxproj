@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A62D9B881AFE101200B5B8F3 /* LocationDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62D9B871AFE101200B5B8F3 /* LocationDetailsViewController.swift */; };
 		A6FF8D0A1AFCAA99006AACDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FF8D091AFCAA99006AACDB /* AppDelegate.swift */; };
 		A6FF8D0C1AFCAA99006AACDB /* CurrentLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FF8D0B1AFCAA99006AACDB /* CurrentLocationViewController.swift */; };
 		A6FF8D0E1AFCAA99006AACDB /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FF8D0D1AFCAA99006AACDB /* SecondViewController.swift */; };
@@ -27,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A62D9B871AFE101200B5B8F3 /* LocationDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationDetailsViewController.swift; path = ../LocationDetailsViewController.swift; sourceTree = "<group>"; };
 		A6FF8D041AFCAA99006AACDB /* MyLocations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLocations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6FF8D081AFCAA99006AACDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A6FF8D091AFCAA99006AACDB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 			children = (
 				A6FF8D091AFCAA99006AACDB /* AppDelegate.swift */,
 				A6FF8D0B1AFCAA99006AACDB /* CurrentLocationViewController.swift */,
+				A62D9B871AFE101200B5B8F3 /* LocationDetailsViewController.swift */,
 				A6FF8D0D1AFCAA99006AACDB /* SecondViewController.swift */,
 				A6FF8D0F1AFCAA99006AACDB /* Main.storyboard */,
 				A6FF8D121AFCAA99006AACDB /* Images.xcassets */,
@@ -215,6 +218,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A62D9B881AFE101200B5B8F3 /* LocationDetailsViewController.swift in Sources */,
 				A6FF8D0E1AFCAA99006AACDB /* SecondViewController.swift in Sources */,
 				A6FF8D0A1AFCAA99006AACDB /* AppDelegate.swift in Sources */,
 				A6FF8D0C1AFCAA99006AACDB /* CurrentLocationViewController.swift in Sources */,
@@ -413,6 +417,7 @@
 				A6FF8D271AFCAA99006AACDB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A6FF8D281AFCAA99006AACDB /* Build configuration list for PBXNativeTarget "MyLocationsTests" */ = {
 			isa = XCConfigurationList;
@@ -421,6 +426,7 @@
 				A6FF8D2A1AFCAA99006AACDB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
