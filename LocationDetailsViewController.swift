@@ -66,6 +66,11 @@ class LocationDetailsViewController: UITableViewController {
         tableView.addGestureRecognizer(gestureRecognizer)
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        descriptionTextView.frame.size.width = view.frame.size.width - 30
+    }
+    
     func hideKeyboard(gestureRecognizer: UIGestureRecognizer) {
         let point = gestureRecognizer.locationInView(tableView)
         let indexPath = tableView.indexPathForRowAtPoint(point)
