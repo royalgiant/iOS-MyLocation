@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A62D9B881AFE101200B5B8F3 /* LocationDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62D9B871AFE101200B5B8F3 /* LocationDetailsViewController.swift */; };
+		A62D9B8A1AFEB0E400B5B8F3 /* CategoryPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62D9B891AFEB0E400B5B8F3 /* CategoryPickerViewController.swift */; };
 		A6FF8D0A1AFCAA99006AACDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FF8D091AFCAA99006AACDB /* AppDelegate.swift */; };
 		A6FF8D0C1AFCAA99006AACDB /* CurrentLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FF8D0B1AFCAA99006AACDB /* CurrentLocationViewController.swift */; };
 		A6FF8D0E1AFCAA99006AACDB /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FF8D0D1AFCAA99006AACDB /* SecondViewController.swift */; };
@@ -29,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		A62D9B871AFE101200B5B8F3 /* LocationDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationDetailsViewController.swift; path = ../LocationDetailsViewController.swift; sourceTree = "<group>"; };
+		A62D9B891AFEB0E400B5B8F3 /* CategoryPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryPickerViewController.swift; path = ../CategoryPickerViewController.swift; sourceTree = "<group>"; };
 		A6FF8D041AFCAA99006AACDB /* MyLocations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLocations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6FF8D081AFCAA99006AACDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A6FF8D091AFCAA99006AACDB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				A6FF8D091AFCAA99006AACDB /* AppDelegate.swift */,
+				A62D9B891AFEB0E400B5B8F3 /* CategoryPickerViewController.swift */,
 				A6FF8D0B1AFCAA99006AACDB /* CurrentLocationViewController.swift */,
 				A62D9B871AFE101200B5B8F3 /* LocationDetailsViewController.swift */,
 				A6FF8D0D1AFCAA99006AACDB /* SecondViewController.swift */,
@@ -221,6 +224,7 @@
 				A62D9B881AFE101200B5B8F3 /* LocationDetailsViewController.swift in Sources */,
 				A6FF8D0E1AFCAA99006AACDB /* SecondViewController.swift in Sources */,
 				A6FF8D0A1AFCAA99006AACDB /* AppDelegate.swift in Sources */,
+				A62D9B8A1AFEB0E400B5B8F3 /* CategoryPickerViewController.swift in Sources */,
 				A6FF8D0C1AFCAA99006AACDB /* CurrentLocationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -143,6 +143,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="bj3-MN-A4Z" kind="push" identifier="PickCategory" id="sgG-2U-Vc4"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -280,8 +283,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="addressLabel" destination="Oat-zT-2s1" id="mDr-44-KCz"/>
-                        <outlet property="categoryLabel" destination="R49-J6-ZEf" id="eAm-kR-bWu"/>
+                        <outlet property="addressLabel" destination="1rh-EX-awQ" id="anf-WT-1a7"/>
+                        <outlet property="categoryLabel" destination="fbd-mr-TiR" id="XrT-pE-ahw"/>
                         <outlet property="dateLabel" destination="pnW-bi-tcP" id="21a-I9-nWr"/>
                         <outlet property="descriptionTextView" destination="1Fh-q8-RMa" id="WA6-VQ-40n"/>
                         <outlet property="latitudeLabel" destination="bjb-Th-gCb" id="fyU-2v-jVU"/>
@@ -291,6 +294,47 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bwZ-H3-fH7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1335" y="-303"/>
+        </scene>
+        <!--Category Picker View Controller-->
+        <scene sceneID="l2T-71-0So">
+            <objects>
+                <tableViewController id="bj3-MN-A4Z" customClass="CategoryPickerViewController" customModule="MyLocations" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="hup-zh-qY1">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="Zah-GL-z64" style="IBUITableViewCellStyleDefault" id="SUl-1Q-CcG">
+                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SUl-1Q-CcG" id="8u1-WO-7gL">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Zah-GL-z64">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="jNO-Zn-BPs" kind="unwind" identifier="PickedCategory" unwindAction="categoryPickerDidPickCategory:" id="mgS-Kv-8Ik"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="bj3-MN-A4Z" id="k9C-aO-yw0"/>
+                            <outlet property="delegate" destination="bj3-MN-A4Z" id="AZF-Rd-FMv"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="92O-ss-0OP"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MZu-0h-gN1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="jNO-Zn-BPs" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1714" y="-303"/>
         </scene>
         <!--Second-->
         <scene sceneID="wg7-f3-ORb">
