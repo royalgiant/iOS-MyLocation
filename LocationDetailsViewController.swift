@@ -33,10 +33,29 @@ class LocationDetailsViewController: UITableViewController {
     var categoryName = "No Category"
     
     var managedObjectContext: NSManagedObjectContext!
+    var date = NSDate()
     
     @IBAction func done() {
         let hudView = HudView.hudInView(navigationController!.view, animated: true)
         hudView.text = "Tagged"
+        
+        // 1 --ask the NSEntityDescription class to insert a new object for your entity into the managed object context. It’s a bit of a weird way to make new objects but that’s how you do it in Core Data. The string "Location" is the name of the entity that you added in the data model earlier.
+        let location = NSEntityDescription.insertNewObjectForEntityForName( "Location", inManagedObjectContext: managedObjectContext) as! Location
+        
+        // 2 --  Once you have created the Location object, you can use it like any other object. Here you set its properties to whatever the user entered in the screen.
+        location.locationDescription = descriptionText
+        location.category = categoryName
+        location.latitude = coordinate.latitude
+        location.longitude = coordinate.longitude
+        location.date = date
+        location.placemark = placemark
+        
+        // 3 - Save the context
+        var error: NSError?
+        if !managedObjectContext.save(&error) {
+            println("Error: \(error)")
+            abort()
+        }
         
         afterDelay(0.6, {self.dismissViewControllerAnimated(true, completion: nil)})
     }
@@ -63,7 +82,7 @@ class LocationDetailsViewController: UITableViewController {
         } else {
             addressLabel.text = "No Address Found"
         }
-        dateLabel.text = formatDate(NSDate())
+        dateLabel.text = formatDate(date)
         
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("hideKeyboard:"))
         gestureRecognizer.cancelsTouchesInView = false
