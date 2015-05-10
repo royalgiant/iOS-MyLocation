@@ -4,7 +4,4 @@
    <FileRef
       location = "self:MyLocations.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:../Location.swift">
-   </FileRef>
 </Workspace>

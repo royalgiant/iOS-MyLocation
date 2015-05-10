@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,7 +16,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        let tabBarController = window!.rootViewController as! UITabBarController
+        if let tabBarViewControllers = tabBarController.viewControllers {
+            let currentLocationViewController = tabBarViewControllers[0] as! CurrentLocationViewController
+            currentLocationViewController.managedObjectContext = managedObjectContext
+        }
         return true
     }
 
@@ -40,6 +46,44 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+    lazy var managedObjectContext: NSManagedObjectContext = {
+        // 1
+        /*The Core Data model you created earlier is stored in your application bundle in a folder named “DataModel.momd”. Here you create an NSURL object pointing at this folder. Paths to files and folders are often represented by URLs in the iOS frameworks.*/
+        if let modelURL = NSBundle.mainBundle().URLForResource("DataModel", withExtension: "momd") {
+            // 2
+            /*Create an NSManagedObjectModel from that URL. This object represents the data model during runtime. You can ask it what sort of entities it has, what attributes these entities have, and so on. In most apps you don’t need to use the NSManagedObjectModel object directly. (Note: this is another example of a failable initializer.)*/
+            if let model = NSManagedObjectModel(contentsOfURL: modelURL) {
+                // 3
+                /* Create an NSPersistentStoreCoordinator object. This object is in charge of the SQLite database.*/
+                let coordinator = NSPersistentStoreCoordinator( managedObjectModel: model)
+                // 4
+                /*The app’s data is stored in an SQLite database inside the app’s Documents folder. Here you create an NSURL object pointing at the DataStore.sqlite file.*/
+                let urls = NSFileManager.defaultManager().URLsForDirectory( .DocumentDirectory, inDomains: .UserDomainMask)
+                let documentsDirectory = urls[0] as! NSURL
+                let storeURL = documentsDirectory.URLByAppendingPathComponent("DataStore.sqlite")
+                // 5
+                /*Add the SQLite database to the store coordinator.*/
+                var error: NSError?
+                if let store = coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: storeURL, options: nil, error: &error) {
+                    // 6
+                    /*Finally, create the NSManagedObjectContext object and return it.*/
+                    let context = NSManagedObjectContext()
+                    context.persistentStoreCoordinator = coordinator
+                    return context
+                // 7
+                /*If something went wrong, then print an error message and abort the app. In theory, errors should never happen here but you definitely want to have some println()’s in place to help with debugging.*/
+                } else {
+                    println("Error adding persistent store at \(storeURL): \(error!)")
+                }
+            } else {
+                println("Error initializing model from: \(modelURL)")
+            }
+        } else {
+            println("Could not find data model in app bundle")
+        }
+        abort()
+    }()
 
 
 }

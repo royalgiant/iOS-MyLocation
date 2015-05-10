@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import CoreData
 
 class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate {
     
@@ -29,6 +30,8 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
     var lastGeocodingError: NSError?
     
     var timer: NSTimer?
+    
+    var managedObjectContext: NSManagedObjectContext!
     
     @IBAction func getLocation() {
         let authStatus: CLAuthorizationStatus = CLLocationManager.authorizationStatus()
@@ -70,8 +73,9 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
         if segue.identifier == "TagLocation" {
             let navigationController = segue.destinationViewController as! UINavigationController
             let controller = navigationController.topViewController as! LocationDetailsViewController
-        controller.coordinate = location!.coordinate
-        controller.placemark = placemark
+            controller.coordinate = location!.coordinate
+            controller.placemark = placemark
+            controller.managedObjectContext = managedObjectContext
         }
     }
     
