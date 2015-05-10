@@ -55,6 +55,7 @@ class LocationsViewController: UITableViewController {
         super.viewDidLoad()
         NSFetchedResultsController.deleteCacheWithName("Locations")
         performFetch()
+        navigationItem.rightBarButtonItem = editButtonItem()
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "EditLocation" {
@@ -66,6 +67,20 @@ class LocationsViewController: UITableViewController {
             if let indexPath = tableView.indexPathForCell(sender as! UITableViewCell) {
                 let location = fetchedResultsController.objectAtIndexPath(indexPath) as! Location
                 controller.locationToEdit = location
+            }
+        }
+    }
+    
+    override func tableView(tableView: UITableView,
+        commitEditingStyle editingStyle: UITableViewCellEditingStyle,
+        forRowAtIndexPath indexPath: NSIndexPath) {
+            if editingStyle == .Delete {
+                let location = fetchedResultsController.objectAtIndexPath(indexPath) as! Location
+            managedObjectContext.deleteObject(location)
+            
+            var error: NSError?
+            if !managedObjectContext.save(&error) {
+                fatalCoreDataError(error)
             }
         }
     }
