@@ -30,7 +30,6 @@ class LocationsViewController: UITableViewController {
             
         return cell
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // 1 - The NSFetchRequest is the object that describes which objects you’re going to fetch from the data store. To retrieve an object that you previously saved to the data store, you create a fetch request that describes the search parameters of the object – or multiple objects – that you’re looking for.
@@ -50,5 +49,18 @@ class LocationsViewController: UITableViewController {
         }
         // 5
         locations = foundObjects as! [Location]
+    }
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "EditLocation" {
+            let navigationController = segue.destinationViewController as! UINavigationController
+            let controller = navigationController.topViewController as! LocationDetailsViewController
+        
+            controller.managedObjectContext = managedObjectContext
+        
+            if let indexPath = tableView.indexPathForCell(sender as! UITableViewCell) {
+                let location = locations[indexPath.row]
+                controller.locationToEdit = location
+            }
+        }
     }
 }
