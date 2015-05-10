@@ -53,8 +53,8 @@ class LocationDetailsViewController: UITableViewController {
         // 3 - Save the context
         var error: NSError?
         if !managedObjectContext.save(&error) {
-            println("Error: \(error)")
-            abort()
+            fatalCoreDataError(error)
+            return
         }
         
         afterDelay(0.6, {self.dismissViewControllerAnimated(true, completion: nil)})

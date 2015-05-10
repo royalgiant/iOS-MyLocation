@@ -9,6 +9,15 @@
 import UIKit
 import CoreData
 
+let MyManagedObjectContextSaveDidFailNotification = "MyManagedObjectContextSaveDidFailNotification"
+
+func fatalCoreDataError(error: NSError?) {
+    if let error = error {
+        println("*** Fatal error: \(error), \(error.userInfo)")
+    }
+    NSNotificationCenter.defaultCenter().postNotificationName( MyManagedObjectContextSaveDidFailNotification, object: error)
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -21,7 +30,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let tabBarViewControllers = tabBarController.viewControllers {
             let currentLocationViewController = tabBarViewControllers[0] as! CurrentLocationViewController
             currentLocationViewController.managedObjectContext = managedObjectContext
+        
+            let navigationController = tabBarViewControllers[1] as! UINavigationController
+            let locationsViewController = navigationController.viewControllers[0] as! LocationsViewController
+            locationsViewController.managedObjectContext = managedObjectContext
         }
+        
+        listenForFatalCoreDataNotifications()
         return true
     }
 
@@ -84,7 +99,45 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         abort()
     }()
-
-
+    
+    func listenForFatalCoreDataNotifications() {
+        // 1
+        /*
+        Tell NSNotificationCenter that you want to be notified whenever a MyManagedObjectContextSaveDidFailNotification is posted. The actual code that is performed when that happens sits in a closure following usingBlock:.
+        This closure has one parameter, notification, containing an NSNotification object. This object is not used anywhere inside the closure, so you could also have written: “_ in” to tell Swift you want to ignore the parameter. The _ is called the wildcard and you can use it whenever a name is expected but you don’t really care about it.
+        */
+        NSNotificationCenter.defaultCenter().addObserverForName(
+        MyManagedObjectContextSaveDidFailNotification, object: nil,
+        queue: NSOperationQueue.mainQueue(),
+        usingBlock: { notification in
+            // 2 - Create a UIAlertController to show the error message.
+            let alert = UIAlertController(title: "Internal Error", message:
+            "There was a fatal error in the app and it cannot continue.\n\n" + "Press OK to terminate the app. Sorry for the inconvenience.", preferredStyle: .Alert)
+            // 3
+            /*Add an action for the alert’s OK button. The code for handling the button press is again a closure (these things are everywhere!). Instead of calling abort(), the closure creates an NSException object. That’s a bit nicer and it provides more information to the crash log. Note that this closure also uses the _ wildcard to ignore its parameter.
+            */
+            let action = UIAlertAction(title: "OK", style: .Default) { _ in
+                let exception = NSException(
+                                    name: NSInternalInconsistencyException,
+                                    reason: "Fatal Core Data error", userInfo: nil)
+                exception.raise()
+            }
+            alert.addAction(action)
+            
+            // 4 - Present the alert
+            self.viewControllerForShowingAlert().presentViewController(
+            alert, animated: true, completion: nil)
+        })
+    }
+    
+    // 5 - To show the alert with presentViewController(animated, completion) you need a view controller that is currently visible, so this helper method finds one that is. Unfortunately you can’t simply use the window’s rootViewController – in this app that is the tab bar controller – because it will be hidden when the Location Details screen is open.
+    func viewControllerForShowingAlert() -> UIViewController {
+        let rootViewController = self.window!.rootViewController!
+        if let presentedViewController = rootViewController.presentedViewController {
+            return presentedViewController
+        } else {
+            return rootViewController
+        }
+    }
 }
 
