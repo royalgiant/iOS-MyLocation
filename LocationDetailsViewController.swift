@@ -50,23 +50,30 @@ class LocationDetailsViewController: UITableViewController {
     @IBAction func done() {
         let hudView = HudView.hudInView(navigationController!.view, animated: true)
         
-        var location: Location!
+        var location: Location
         if let temp = locationToEdit {
             hudView.text = "Updated"
             location = temp
+            location.locationDescription = descriptionText
+            location.category = categoryName
+            location.latitude = coordinate.latitude
+            location.longitude = coordinate.longitude
+            location.date = date
+            location.placemark = placemark
         } else {
             hudView.text = "Tagged"
         
             // 1 --ask the NSEntityDescription class to insert a new object for your entity into the managed object context. It’s a bit of a weird way to make new objects but that’s how you do it in Core Data. The string "Location" is the name of the entity that you added in the data model earlier.
             let location = NSEntityDescription.insertNewObjectForEntityForName( "Location", inManagedObjectContext: managedObjectContext) as! Location
+            location.locationDescription = descriptionText
+            location.category = categoryName
+            location.latitude = coordinate.latitude
+            location.longitude = coordinate.longitude
+            location.date = date
+            location.placemark = placemark
         }
         // 2 --  Once you have created the Location object, you can use it like any other object. Here you set its properties to whatever the user entered in the screen.
-        location.locationDescription = descriptionText
-        location.category = categoryName
-        location.latitude = coordinate.latitude
-        location.longitude = coordinate.longitude
-        location.date = date
-        location.placemark = placemark
+        
         
         // 3 - Save the context
         var error: NSError?
