@@ -13,42 +13,48 @@ import CoreLocation
 class LocationsViewController: UITableViewController {
 
     var managedObjectContext: NSManagedObjectContext!
-    var locations = [Location]()
+    lazy var fetchedResultsController: NSFetchedResultsController = {
+        let fetchRequest = NSFetchRequest()
+        
+        let entity = NSEntityDescription.entityForName("Location", inManagedObjectContext: self.managedObjectContext)
+        
+        fetchRequest.entity = entity
+        
+        let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
+        
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        fetchRequest.fetchBatchSize = 20
+        
+        let fetchedResultsController = NSFetchedResultsController(
+            fetchRequest: fetchRequest,
+            managedObjectContext: self.managedObjectContext,
+            sectionNameKeyPath: nil,
+            cacheName: "Locations")
+        
+        fetchedResultsController.delegate = self
+        return fetchedResultsController
+    }()
     
     // MARK: - UITableViewDataSource
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return locations.count
+        let sectionInfo = fetchedResultsController.sections![section] as! NSFetchedResultsSectionInfo
+        return sectionInfo.numberOfObjects
     }
     
     override func tableView(tableView: UITableView,
         cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier( "LocationCell") as! LocationCell
         
-        let location = locations[indexPath.row]
+        let location = fetchedResultsController.objectAtIndexPath(indexPath) as! Location
         cell.configureForLocation(location)
         
-            
         return cell
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        // 1 - The NSFetchRequest is the object that describes which objects you’re going to fetch from the data store. To retrieve an object that you previously saved to the data store, you create a fetch request that describes the search parameters of the object – or multiple objects – that you’re looking for.
-        let fetchRequest = NSFetchRequest()
-        // 2 - The NSEntityDescription tells the fetch request you’re looking for Location entities.
-        let entity = NSEntityDescription.entityForName("Location", inManagedObjectContext: managedObjectContext)
-        fetchRequest.entity = entity
-        // 3 - The NSSortDescriptor tells the fetch request to sort on the date attribute, in ascending order. In order words, the Location objects that the user added first will be at the top of the list. You can sort on any attribute here (later in this tutorial you’ll sort on the Location’s category as well).
-        let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        // 4 - Execute fetch request, executeFetchRequest() returns an array with sorted objects, or nil in case of error
-        var error: NSError?
-        let foundObjects = managedObjectContext.executeFetchRequest(fetchRequest, error: &error)
-        if foundObjects == nil {
-            fatalCoreDataError(error)
-            return
-        }
-        // 5
-        locations = foundObjects as! [Location]
+        NSFetchedResultsController.deleteCacheWithName("Locations")
+        performFetch()
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "EditLocation" {
@@ -58,9 +64,78 @@ class LocationsViewController: UITableViewController {
             controller.managedObjectContext = managedObjectContext
         
             if let indexPath = tableView.indexPathForCell(sender as! UITableViewCell) {
-                let location = locations[indexPath.row]
+                let location = fetchedResultsController.objectAtIndexPath(indexPath) as! Location
                 controller.locationToEdit = location
             }
         }
+    }
+    
+    func performFetch() {
+        var error: NSError?
+        if !fetchedResultsController.performFetch(&error) {
+            fatalCoreDataError(error)
+        }
+    }
+    
+    deinit {
+        fetchedResultsController.delegate = nil
+    }
+}
+
+extension LocationsViewController: NSFetchedResultsControllerDelegate {
+
+    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+        println("*** controllerWillChangeContent")
+        tableView.beginUpdates()
+    }
+    
+    func controller(controller: NSFetchedResultsController,
+                    didChangeObject anObject: AnyObject,
+                    atIndexPath indexPath: NSIndexPath?,
+                    forChangeType type: NSFetchedResultsChangeType,
+                    newIndexPath: NSIndexPath?) {
+        switch type {
+            case .Insert:
+                println("*** NSFetchedResultsChangeInsert (object)")
+                tableView.insertRowsAtIndexPaths([newIndexPath!],withRowAnimation: .Fade)
+            case .Delete:
+                println("*** NSFetchedResultsChangeDelete (object)")
+                tableView.deleteRowsAtIndexPaths([indexPath!],withRowAnimation: .Fade)
+            case .Update:
+                println("*** NSFetchedResultsChangeUpdate (object)")
+                let cell = tableView.cellForRowAtIndexPath(indexPath!) as! LocationCell
+                let location = controller.objectAtIndexPath(indexPath!) as! Location
+                cell.configureForLocation(location)
+            case .Move:
+                println("*** NSFetchedResultsChangeMove (object)")
+                tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+                tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+        }
+    }
+    
+    func controller(controller: NSFetchedResultsController,
+                    didChangeSection sectionInfo: NSFetchedResultsSectionInfo,
+                    atIndex sectionIndex: Int,
+                    forChangeType type: NSFetchedResultsChangeType) {
+        switch type {
+            case .Insert:
+                println("*** NSFetchedResultsChangeInsert (section)")
+                tableView.insertSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
+            
+            case .Delete:
+                println("*** NSFetchedResultsChangeDelete (section)")
+                tableView.deleteSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
+            
+            case .Update:
+                println("*** NSFetchedResultsChangeUpdate (section)")
+            
+            case .Move:
+                println("*** NSFetchedResultsChangeMove (section)")
+        }
+    }
+    
+    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+        println("*** controllerDidChangeContent")
+        tableView.endUpdates()
     }
 }
