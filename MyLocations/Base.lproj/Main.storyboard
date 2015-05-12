@@ -354,7 +354,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-84" y="200"/>
+            <point key="canvasLocation" x="-320" y="333"/>
         </scene>
         <!--Locations-->
         <scene sceneID="Oif-es-SMt">
@@ -439,7 +439,7 @@
                                     </navigationItem>
                                 </items>
                                 <connections>
-                                    <outlet property="delegate" destination="Vvf-A3-c22" id="fbG-UE-j12"/>
+                                    <outlet property="delegate" destination="giK-2C-zT0" id="QDN-1R-uyl"/>
                                 </connections>
                             </navigationBar>
                         </subviews>
@@ -449,11 +449,12 @@
                     <connections>
                         <outlet property="mapView" destination="IsX-4n-gUR" id="UO6-OI-2Yd"/>
                         <outlet property="view" destination="IsX-4n-gUR" id="9dA-XY-rqb"/>
+                        <segue destination="bqS-kJ-L9i" kind="modal" identifier="EditLocation" id="yju-Da-GUO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q0G-aj-wrE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="379" y="1117"/>
+            <point key="canvasLocation" x="803" y="1055"/>
         </scene>
         <!--Locations-->
         <scene sceneID="SJJ-pw-l7c">
@@ -500,6 +501,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="dNW-bg-Nal"/>
+        <segue reference="yju-Da-GUO"/>
     </inferredMetricsTieBreakers>
 </document>
