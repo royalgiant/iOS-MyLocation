@@ -66,21 +66,48 @@ class LocationDetailsViewController: UITableViewController {
             location.longitude = coordinate.longitude
             location.date = date
             location.placemark = placemark
+            if let image = image {
+                // 1
+                if !location.hasPhoto {
+                    location.photoID = Location.nextPhotoID()
+                }
+                // 2
+                let data = UIImageJPEGRepresentation(image, 0.5)
+                // 3
+                var error: NSError?
+                if !data.writeToFile(location.photoPath, options: .DataWritingAtomic,error: &error) {
+                    println("Error writing file: \(error)")
+                }
+            }
         } else {
             hudView.text = "Tagged"
         
             // 1 --ask the NSEntityDescription class to insert a new object for your entity into the managed object context. It’s a bit of a weird way to make new objects but that’s how you do it in Core Data. The string "Location" is the name of the entity that you added in the data model earlier.
             let location = NSEntityDescription.insertNewObjectForEntityForName( "Location", inManagedObjectContext: managedObjectContext) as! Location
+            
+            location.photoID = nil
             location.locationDescription = descriptionText
             location.category = categoryName
             location.latitude = coordinate.latitude
             location.longitude = coordinate.longitude
             location.date = date
             location.placemark = placemark
+            if let image = image {
+                // 1
+                if !location.hasPhoto {
+                    location.photoID = Location.nextPhotoID()
+                }
+                // 2
+                let data = UIImageJPEGRepresentation(image, 0.5)
+                // 3
+                var error: NSError?
+                if !data.writeToFile(location.photoPath, options: .DataWritingAtomic,error: &error) {
+                    println("Error writing file: \(error)")
+                }
+            }
         }
-        // 2 --  Once you have created the Location object, you can use it like any other object. Here you set its properties to whatever the user entered in the screen.
         
-        
+
         // 3 - Save the context
         var error: NSError?
         if !managedObjectContext.save(&error) {
