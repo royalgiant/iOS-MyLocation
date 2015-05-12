@@ -169,6 +169,10 @@ class LocationDetailsViewController: UITableViewController {
         if indexPath.section == 0 && indexPath.row == 0 {
             descriptionTextView.becomeFirstResponder()
         }
+        else if indexPath.section == 1 && indexPath.row == 0 {
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            pickPhoto()
+        }
     }
     
     func stringFromPlacemark(placemark: CLPlacemark) -> String {
@@ -192,5 +196,55 @@ extension LocationDetailsViewController: UITextViewDelegate {
     
     func textViewDidEndEditing(textView: UITextView) {
         descriptionText = textView.text
+    }
+}
+
+extension LocationDetailsViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func takePhotoWithCamera() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .Camera
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        presentViewController(imagePicker, animated: true, completion: nil)
+    }
+    
+    func choosePhotoFromLibrary() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .PhotoLibrary
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        presentViewController(imagePicker, animated: true, completion: nil)
+    }
+    
+    func pickPhoto(){
+        if UIImagePickerController.isSourceTypeAvailable(.Camera) {
+            showPhotoMenu()
+        } else {
+            choosePhotoFromLibrary()
+        }
+    }
+    
+    func showPhotoMenu() {
+        let alertController = UIAlertController(title: nil, message: nil,preferredStyle: .ActionSheet)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        let takePhotoAction = UIAlertAction(title: "Take Photo",style: .Default, handler: {_ in self.takePhotoWithCamera()})
+        alertController.addAction(takePhotoAction)
+        
+            let chooseFromLibraryAction = UIAlertAction(title:"Choose From Library", style: .Default, handler: {_ in self.choosePhotoFromLibrary()})
+        alertController.addAction(chooseFromLibraryAction)
+        
+        presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+            dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+            dismissViewControllerAnimated(true, completion: nil)
     }
 }
