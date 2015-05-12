@@ -39,7 +39,8 @@ class LocationDetailsViewController: UITableViewController {
     var date = NSDate()
     
     var image :UIImage?
-    
+    var observer :AnyObject!
+
     var locationToEdit: Location? {
         didSet {
             if let location = locationToEdit {
@@ -123,6 +124,7 @@ class LocationDetailsViewController: UITableViewController {
         gestureRecognizer.cancelsTouchesInView = false
         
         tableView.addGestureRecognizer(gestureRecognizer)
+        listenForBackgroundNotification()
     }
     
     override func viewWillLayoutSubviews() {
@@ -154,7 +156,7 @@ class LocationDetailsViewController: UITableViewController {
                 return 88
         
             case(1, _):
-                return imageView.hidden? 44: 280
+                return imageView.hidden ? 44: 280
             
             case(2,2):
                 addressLabel.frame.size = CGSize(width: view.bounds.size.width - 115, height: 10000)
@@ -203,6 +205,23 @@ class LocationDetailsViewController: UITableViewController {
         imageView.hidden = false
         imageView.frame = CGRect(x: 10, y: 10, width: 260, height: 260)
         addPhotoLabel.hidden = true
+    }
+    
+    func listenForBackgroundNotification() {
+        observer = NSNotificationCenter.defaultCenter().addObserverForName(
+            UIApplicationDidEnterBackgroundNotification, object: nil, queue: NSOperationQueue.mainQueue()) {
+               [weak self] notification in // weak self indicates that closure will not keep view controller alive
+            if let strongSelf = self {
+                if strongSelf.presentedViewController != nil {
+                strongSelf.dismissViewControllerAnimated(false, completion: nil) }
+                strongSelf.descriptionTextView.resignFirstResponder()
+            }
+        }
+    }
+    
+    deinit {
+        println("*** deinit \(self)")
+        NSNotificationCenter.defaultCenter().removeObserver(observer)
     }
 }
 
