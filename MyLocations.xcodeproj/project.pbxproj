@@ -22,11 +22,11 @@
 		A649B3A71B017E280050B7E5 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A649B3A61B017E280050B7E5 /* MapViewController.swift */; };
 		A6A0648E1AFF700A0099EA36 /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A0648D1AFF700A0099EA36 /* LocationCell.swift */; };
 		A6E5F0F31B0317D3000092F7 /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E5F0F21B0317D3000092F7 /* UIImage+Resize.swift */; };
+		A6F795E31B035463000ADC2E /* Sound.caf in Resources */ = {isa = PBXBuildFile; fileRef = A6F795E21B035463000ADC2E /* Sound.caf */; };
 		A6FF8D0A1AFCAA99006AACDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FF8D091AFCAA99006AACDB /* AppDelegate.swift */; };
 		A6FF8D0C1AFCAA99006AACDB /* CurrentLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FF8D0B1AFCAA99006AACDB /* CurrentLocationViewController.swift */; };
 		A6FF8D111AFCAA99006AACDB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6FF8D0F1AFCAA99006AACDB /* Main.storyboard */; };
 		A6FF8D131AFCAA99006AACDB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A6FF8D121AFCAA99006AACDB /* Images.xcassets */; };
-		A6FF8D161AFCAA99006AACDB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A6FF8D141AFCAA99006AACDB /* LaunchScreen.xib */; };
 		A6FF8D221AFCAA99006AACDB /* MyLocationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FF8D211AFCAA99006AACDB /* MyLocationsTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -56,13 +56,13 @@
 		A649B3A61B017E280050B7E5 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapViewController.swift; path = ../MapViewController.swift; sourceTree = "<group>"; };
 		A6A0648D1AFF700A0099EA36 /* LocationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationCell.swift; path = ../LocationCell.swift; sourceTree = "<group>"; };
 		A6E5F0F21B0317D3000092F7 /* UIImage+Resize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImage+Resize.swift"; path = "../UIImage+Resize.swift"; sourceTree = "<group>"; };
+		A6F795E21B035463000ADC2E /* Sound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Sound.caf; sourceTree = "<group>"; };
 		A6FF8D041AFCAA99006AACDB /* MyLocations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLocations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6FF8D081AFCAA99006AACDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A6FF8D091AFCAA99006AACDB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A6FF8D0B1AFCAA99006AACDB /* CurrentLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationViewController.swift; sourceTree = "<group>"; };
 		A6FF8D101AFCAA99006AACDB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A6FF8D121AFCAA99006AACDB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		A6FF8D151AFCAA99006AACDB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		A6FF8D1B1AFCAA99006AACDB /* MyLocationsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyLocationsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6FF8D201AFCAA99006AACDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A6FF8D211AFCAA99006AACDB /* MyLocationsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLocationsTests.swift; sourceTree = "<group>"; };
@@ -87,6 +87,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A6F795E11B035463000ADC2E /* Sound */ = {
+			isa = PBXGroup;
+			children = (
+				A6F795E21B035463000ADC2E /* Sound.caf */,
+			);
+			path = Sound;
+			sourceTree = "<group>";
+		};
 		A6FF8CFB1AFCAA99006AACDB = {
 			isa = PBXGroup;
 			children = (
@@ -116,7 +124,6 @@
 				A62D9B8D1AFF000900B5B8F3 /* Functions.swift */,
 				A62D9B8B1AFEC9D800B5B8F3 /* HudView.swift */,
 				A6FF8D121AFCAA99006AACDB /* Images.xcassets */,
-				A6FF8D141AFCAA99006AACDB /* LaunchScreen.xib */,
 				A64222121AFF55E100F56167 /* Location.swift */,
 				A6A0648D1AFF700A0099EA36 /* LocationCell.swift */,
 				A62D9B871AFE101200B5B8F3 /* LocationDetailsViewController.swift */,
@@ -128,6 +135,7 @@
 				A6492D1B1B032CCE005A6334 /* MyTabBarController.swift */,
 				A6E5F0F21B0317D3000092F7 /* UIImage+Resize.swift */,
 				A6492D191B032611005A6334 /* String+AddText.swift */,
+				A6F795E11B035463000ADC2E /* Sound */,
 				A6FF8D071AFCAA99006AACDB /* Supporting Files */,
 			);
 			path = MyLocations;
@@ -239,7 +247,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A6FF8D111AFCAA99006AACDB /* Main.storyboard in Resources */,
-				A6FF8D161AFCAA99006AACDB /* LaunchScreen.xib in Resources */,
+				A6F795E31B035463000ADC2E /* Sound.caf in Resources */,
 				A6FF8D131AFCAA99006AACDB /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -302,14 +310,6 @@
 				A6FF8D101AFCAA99006AACDB /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		A6FF8D141AFCAA99006AACDB /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A6FF8D151AFCAA99006AACDB /* Base */,
-			);
-			name = LaunchScreen.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -400,6 +400,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = MyLocations/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -410,6 +411,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = MyLocations/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
