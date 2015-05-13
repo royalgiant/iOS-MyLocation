@@ -11,7 +11,6 @@ import CoreData
 import CoreLocation
 
 class LocationsViewController: UITableViewController {
-
     var managedObjectContext: NSManagedObjectContext!
     lazy var fetchedResultsController: NSFetchedResultsController = {
         let fetchRequest = NSFetchRequest()
