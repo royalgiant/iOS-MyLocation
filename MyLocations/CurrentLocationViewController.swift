@@ -19,6 +19,9 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
     @IBOutlet weak var tagButton: UIButton!
     @IBOutlet weak var getButton: UIButton!
     
+    @IBOutlet weak var latitudeTextLabel: UILabel!
+    @IBOutlet weak var longitudeTextLabel: UILabel!
+    
     let locationManager = CLLocationManager()
     var location: CLLocation?
     var updatingLocation = false
@@ -173,7 +176,10 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
             longitudeLabel.text = String(format: "%.8f", location.coordinate.longitude)
             tagButton.hidden = false
             messageLabel.text = ""
-                
+            
+            latitudeTextLabel.hidden = false
+            longitudeTextLabel.hidden = false
+            
             if let placemark = placemark {
                 addressLabel.text = stringFromPlacemark(placemark)
             } else if performingReverseGeocoding {
@@ -188,6 +194,9 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
             longitudeLabel.text = ""
             addressLabel.text = ""
             tagButton.hidden = true
+            
+            latitudeTextLabel.hidden = true
+            longitudeTextLabel.hidden = true
             
             // The new code starts here:
             var statusMessage: String
